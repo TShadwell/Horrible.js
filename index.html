@@ -8,13 +8,40 @@
  * Usage: window.compile(<string>, <string>)
  * Argument 1: The code to compile.
  * Argument 2: A (perferably very short) variable name you don't use.
+ * Optional argument 3: Horrible factor:
+ *  Factor 1: As normal
+ *  Factor 2: Encode numbers as mess
+ *  Factor 3: Encode numbers and charcodes
  */
+ numberToMess=function(nuum){
+	
+	if (nuum ==0){ return "(+[])"}
+	else{
+		var stir="";
+		if(nuum==1){
+			return "(+!+[])";
+		}
+			else{
+				for (d=0;d<nuum;d++){
+					stir+="!+[]+";
+				}
+
+				return ("(+"+stir.slice(0,-1)+")");
+			}
+	}
+}
  stringToCharCodeArrayString=function(string){
  	cc=[];
  	for(var i = 0; i < string.length; ++i){
         cc[i] = string.charCodeAt(i);
     }
-    return cc.join(",");
+    if (window.horror==3){
+    	return cc.map(function(val){return numberToMess(val);}).join(",");
+    }
+    else{
+    	return cc.join(",");
+    }
+   
  }
  window.chars="abcdefijlNnOorstu []";
  window.dict={
@@ -40,6 +67,7 @@
 	']': '([]+[]+{})[+!+[]+[]+[]+(!+[]+!+[]+!+[]+!+[])]'
 }
 window.compileToString=function(codeasstring, extrasvalue){
+	window.horror=document.getElementById("horror").value;
 	var c=" "+codeasstring;
 	var out="";
 	var extras="";
@@ -52,7 +80,12 @@ window.compileToString=function(codeasstring, extrasvalue){
 				if ((extras.indexOf(chr)==-1)){
 					extras+=chr;
 				}
-				out+=extrasvalue+"["+extras.indexOf(chr)+"]+";
+				if (window.horror==1){
+					out+=extrasvalue+"["+extras.indexOf(chr)+"]+";
+				}
+				else{
+					out+=extrasvalue+"["+numberToMess(extras.indexOf(chr))+"]+";
+				}
 			}
 		}
 	}
@@ -64,12 +97,13 @@ window.compile=function(codeasstring, extrasvalue){
 }
 window.code={
 	compile:function(e){
-		document.getElementById("compiledCode").value=compile(document.getElementById("code").value,"$");
+		document.getElementById("compiledCode").value=compile(document.getElementById("code").value,document.getElementById("shortvar").value);
 	},
 	compileToString:function(e){
-		document.getElementById("compiledCode").value=compileToString(document.getElementById("code").value,"$");
+		document.getElementById("compiledCode").value=compileToString(document.getElementById("code").value,document.getElementById("shortvar").value);
 	}
 }
+
 	</script>
 	<style type="text/css">
 	body{
@@ -119,6 +153,8 @@ window.code={
 	</style>
 </head>
 <body>
+	Horror factor:<br/><input id="horror" value="1" type="range"  min="1" max="3" step="1" /><br/>
+	Short var:<br/><input id="shortvar" type="text" value="$"/>
 	<textarea id="code"></textarea>
 	<a onclick="code.compile()"><i>compile</i> from text</a>
 	<a onclick="code.compileToString()"><i>compileToString</i> from text</a>

@@ -16,7 +16,7 @@ into your folder of choice, open index.html.
 
 ## Using the browser
 
-At the bottom of the page there are two boxes, one for code and one for output that can be used to compile code. Explainations of the functions are given below.
+At the bottom of the page there are two boxes, one for code and one for output that can be used to compile code, in addition to a slider and a text input. Explainations of the functions are given below.
 
 ## Using Javascript
 
@@ -27,6 +27,11 @@ There are two functions that can be used to compile code, both of which take 2 a
 `compile`, which will compile the code and package in a particularly horrible form of exec to execute the code.
 
 In addition, the `code` object can be used to compile the code from the textarea via `code.compileToString()` and `code.compile()`.
+
+There is a 'Horror factor', which determines how much to mess up the resulting code. The factor can be changed with `window.horror`.
+* Factor 1: As normal.
+* Factor 2: Indexes encoded with quirks.
+* Factor 3: Indexes and char-codes encoded with quirks.
 
 ## Example
 > compile("console.log('test')","$")
