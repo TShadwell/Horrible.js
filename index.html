@@ -1,3 +1,4 @@
+<!DOCTYPE HTML>
 <head>
 	<title>Horrible.js</title>
 	<script>
@@ -61,22 +62,65 @@ window.compile=function(codeasstring, extrasvalue){
 	m=compileToString(codeasstring, extrasvalue).split(";");
 	return m[0]+";_=\"constructor\";_[_][_]("+m[1]+")();";
 }
+window.code={
+	compile:function(e){
+		document.getElementById("compiledCode").value=compile(document.getElementById("code").value,"$");
+	},
+	compileToString:function(e){
+		document.getElementById("compiledCode").value=compileToString(document.getElementById("code").value,"$");
+	}
+}
 	</script>
 	<style type="text/css">
+	body{
+		width:700px;
+		margin-left:auto;
+		margin-right:auto;
+	}
+	textarea{
+		position:relative;
+		width:100%;
+		height:500px;
+	}
+	#code:before{
+		display:block;
+		font-size:20px;
+		content:"Code to compile...";
+	}
+	#compiledCode:before{
+		display:block;
+		font-size:20px;
+		content:"Compiled code...";
+	}
 	head{
 		display:block;
 	}
 	title,script{
-
 		white-space: pre;
 		font-family:monospace;
 		font-size:15px;
 		color:black;
 		display:block;
+		border-bottom:1px solid black;
 	}
 	title{
 		font-size:30px;
-		border-bottom:1px solid black;
+	}
+	a{
+		text-decoration:none;
+		color:black;
+		border:1px solid black;
+		padding:10px;
+		cursor:pointer;
+	}
+	a+a{
+		border-left:0px;
 	}
 	</style>
 </head>
+<body>
+	<textarea id="code"></textarea>
+	<a onclick="code.compile()"><i>compile</i> from text</a>
+	<a onclick="code.compileToString()"><i>compileToString</i> from text</a>
+	<textarea id="compiledCode"></textarea>
+</body>
