@@ -6,7 +6,9 @@ Horrible.js is really more of an _obfuscator_ than a compiler, as the resulting 
 
 Usage
 -----
-After you grab the repo off git; that is:
+If you're not going to hack on the code, you can use an online version [here](http://tshadwell.github.com/horrible.html).
+
+Otherwise, you can grab the latest version:
 
 `git clone git@github.com:TShadwell/horrible.js.git`
 
