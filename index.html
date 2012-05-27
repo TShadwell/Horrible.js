@@ -1,0 +1,82 @@
+<head>
+	<title>Horrible.js</title>
+	<script>
+/*  horrible.js - a JS compiler that does horrible things.
+ * Thomas NJ Shadwell
+ * Licensed under the MIT license.
+ * Usage: window.compile(<string>, <string>)
+ * Argument 1: The code to compile.
+ * Argument 2: A (perferably very short) variable name you don't use.
+ */
+ stringToCharCodeArrayString=function(string){
+ 	cc=[];
+ 	for(var i = 0; i < string.length; ++i){
+        cc[i] = string.charCodeAt(i);
+    }
+    return cc.join(",");
+ }
+ window.chars="abcdefijlNnOorstu []";
+ window.dict={
+	'a': '(![]+[])[+!+[]]',
+	'b': '([]+[]+{})[!+[]+!+[]]',
+	'c': '([![]]+{})[+!+[]+[+[]]]',
+	'd': '([]+[]+[][[]])[!+[]+!+[]]',
+	'e': '(!![]+[])[!+[]+!+[]+!+[]]',
+	'f': '(![]+[])[+[]]',
+	'i': '([![]]+[][[]])[+!+[]+[+[]]]',
+	'j': '([]+[]+{})[+!+[]+[+[]]]',
+	'l': '(![]+[])[!+[]+!+[]]',
+	'N': '(+{}+[]+[])[+[]]',
+	'n': '([]+[]+[][[]])[+!+[]]',
+	'O': '(![]+[]+[]+[]+{})[+!+[]+[]+[]+(!+[]+!+[]+!+[])]',
+	'o': '([]+[]+{})[+!+[]]',
+	'r': '(!![]+[])[+!+[]]',
+	's': '(![]+[])[!+[]+!+[]+!+[]]',
+	't': '(!![]+[])[+[]]',
+	'u': '(!![]+[])[!+[]+!+[]]',
+	' ': '(+{}+[]+[]+[]+[]+{})[+!+[]+[+[]]]',
+	'[': '([]+[]+{})[+[]]',
+	']': '([]+[]+{})[+!+[]+[]+[]+(!+[]+!+[]+!+[]+!+[])]'
+}
+window.compileToString=function(codeasstring, extrasvalue){
+	var c=" "+codeasstring;
+	var out="";
+	var extras="";
+	for (i=0,chr=''; i<c.length;i++,chr=c[i]){
+		if (!(i==0 || chr=="\n")){
+			if(!(chars.indexOf(chr)==-1)){
+				out+=dict[chr]+"+";
+			}
+			else{
+				if ((extras.indexOf(chr)==-1)){
+					extras+=chr;
+				}
+				out+=extrasvalue+"["+extras.indexOf(chr)+"]+";
+			}
+		}
+	}
+	return extrasvalue+"=String.fromCharCode("+stringToCharCodeArrayString(extras)+");" + out.slice(0,-1);
+}
+window.compile=function(codeasstring, extrasvalue){
+	m=compileToString(codeasstring, extrasvalue).split(";");
+	return m[0]+";_=\"constructor\";_[_][_]("+m[1]+")();";
+}
+	</script>
+	<style type="text/css">
+	head{
+		display:block;
+	}
+	title,script{
+
+		white-space: pre;
+		font-family:monospace;
+		font-size:15px;
+		color:black;
+		display:block;
+	}
+	title{
+		font-size:30px;
+		border-bottom:1px solid black;
+	}
+	</style>
+</head>
