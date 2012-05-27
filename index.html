@@ -44,7 +44,7 @@ window.compileToString=function(codeasstring, extrasvalue){
 	var out="";
 	var extras="";
 	for (i=0,chr=''; i<c.length;i++,chr=c[i]){
-		if (!(i==0 || chr=="\n")){
+		if (!(i==0)){
 			if(!(chars.indexOf(chr)==-1)){
 				out+=dict[chr]+"+";
 			}
