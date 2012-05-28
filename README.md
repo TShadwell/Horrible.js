@@ -4,6 +4,8 @@ For all your horrible Javascript needs.
 
 Horrible.js is really more of an _obfuscator_ than a compiler, as the resulting code will __always__ come out larger. It uses some of Javascript's quirks to produce completely, utterly unreadable code.
 
+*If you were looking for a horrible js compiler that is, in itself horrible, check out [LukeZbihlyj's fork](https://github.com/LukeZbihlyj/horrible-horrible.js), which probably caters to your twisted desire.*
+
 Usage
 -----
 If you're not going to hack on the code, you can use an online version [here](http://tshadwell.github.com/horrible.html).
