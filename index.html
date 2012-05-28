@@ -24,21 +24,6 @@ var numberToMess = function (num) {
 		return "(+" + str.slice(0, -1) + ")";
 	}
 }
-var cachingNumberToMess = function(num){
-	if (typeof(window.cacheNumbers)== "undefined"){
-		window.cacheNumbers=[];
-	}
-	
-	if (typeof(window.cacheNumbers[num])=="undefined"){
-		var out = numberToMess(num);
-		window.cacheNumbers[num]=out;
-		return out;
-	}
-	else{
-		return window.cacheNumbers[num];
-	}
-
-}
 var stringToCharCodeArrayString = function (string) {
 	cc = [];
 	for (var i = 0; i < string.length; ++i) {
@@ -89,7 +74,7 @@ var compileToString = function (codeasstring, extrasvalue) {
 				if (window.horror == 1) {
 					out += extrasvalue + "[" + extras.indexOf(chr) + "]+";
 				} else {
-					out += extrasvalue + "[" + cachingNumberToMess(extras.indexOf(chr)) + "]+";
+					out += extrasvalue + "[" + numberToMess(extras.indexOf(chr)) + "]+";
 				}
 			}
 		}
