@@ -7,44 +7,34 @@
  * Licensed under the MIT license.
  * Usage: window.compile(<string>, <string>)
  * Argument 1: The code to compile.
- * Argument 2: A (perferably very short) variable name you don't use.
+ * Argument 2: A (preferably very short) variable name you don't use.
  * Optional argument 3: Horrible factor:
  *  Factor 1: As normal
  *  Factor 2: Encode numbers as mess
  *  Factor 3: Encode numbers and charcodes
  */
- numberToMess=function(nuum){
-	
-	if (nuum ==0){ return "(+[])"}
-	else{
-		var stir="";
-		if(nuum==1){
-			return "(+!+[])";
+var numberToMess = function (num) {
+	if (num == 0) return "(+[])";
+	else if (num == 1) return "(+!+[])";
+	else {
+		var str = "";
+		for (var d = 0; d < num; d++) {
+			str += "!+[]+";
 		}
-			else{
-				for (d=0;d<nuum;d++){
-					stir+="!+[]+";
-				}
-
-				return ("(+"+stir.slice(0,-1)+")");
-			}
+		return "(+" + str.slice(0, -1) + ")";
 	}
 }
- stringToCharCodeArrayString=function(string){
- 	cc=[];
- 	for(var i = 0; i < string.length; ++i){
-        cc[i] = string.charCodeAt(i);
-    }
-    if (window.horror==3){
-    	return cc.map(function(val){return numberToMess(val);}).join(",");
-    }
-    else{
-    	return cc.join(",");
-    }
-   
- }
- window.chars="abcdefijlNnOorstu []";
- window.dict={
+var stringToCharCodeArrayString = function (string) {
+	cc = [];
+	for (var i = 0; i < string.length; ++i) {
+		cc[i] = string.charCodeAt(i);
+	}
+	if (window.horror == 3) {
+		cc = cc.map(numberToMess);
+	}
+	return cc.join(",");
+}
+window.dict = {
 	'a': '(![]+[])[+!+[]]',
 	'b': '([]+[]+{})[!+[]+!+[]]',
 	'c': '([![]]+{})[+!+[]+[+[]]]',
@@ -66,44 +56,47 @@
 	'[': '([]+[]+{})[+[]]',
 	']': '([]+[]+{})[+!+[]+[]+[]+(!+[]+!+[]+!+[]+!+[])]'
 }
-window.compileToString=function(codeasstring, extrasvalue){
-	window.horror=document.getElementById("horror").value;
-	var c=" "+codeasstring;
-	var out="";
-	var extras="";
-	for (i=0,chr=''; i<c.length;i++,chr=c[i]){
-		if (!(i==0)){
-			if(!(chars.indexOf(chr)==-1)){
-				out+=dict[chr]+"+";
-			}
-			else{
-				if ((extras.indexOf(chr)==-1)){
-					extras+=chr;
+var compileToString = function (codeasstring, extrasvalue) {
+	window.horror = document.getElementById("horror").value;
+	var c = " " + codeasstring;
+	var out = "";
+	var extras = "";
+	for (var i = 0, chr = ''; i < c.length; i++, chr = c[i]) {
+		if (i != 0) {
+			if (chr in dict) {
+				out += dict[chr] + "+";
+			} else {
+				if (extras.indexOf(chr) == -1) {
+					extras += chr;
 				}
-				if (window.horror==1){
-					out+=extrasvalue+"["+extras.indexOf(chr)+"]+";
-				}
-				else{
-					out+=extrasvalue+"["+numberToMess(extras.indexOf(chr))+"]+";
+				if (window.horror == 1) {
+					out += extrasvalue + "[" + extras.indexOf(chr) + "]+";
+				} else {
+					out += extrasvalue + "[" + numberToMess(extras.indexOf(chr)) + "]+";
 				}
 			}
 		}
 	}
-	return extrasvalue+"=String.fromCharCode("+stringToCharCodeArrayString(extras)+");" + out.slice(0,-1);
+	return extrasvalue + "=String.fromCharCode(" + stringToCharCodeArrayString(extras) + ");" + out.slice(0, -1);
 }
-window.compile=function(codeasstring, extrasvalue){
-	m=compileToString(codeasstring, extrasvalue).split(";");
-	return m[0]+";_=\"constructor\";_[_][_]("+m[1]+")();";
+var compile = function (codeasstring, extrasvalue) {
+	m = compileToString(codeasstring, extrasvalue).split(";");
+	return m[0] + ";_=\"constructor\";_[_][_](" + m[1] + ")();";
 }
-window.code={
-	compile:function(e){
-		document.getElementById("compiledCode").value=compile(document.getElementById("code").value,document.getElementById("shortvar").value);
+window.code = {
+	compile: function () {
+		document.getElementById("compiledCode").value = compile(
+			document.getElementById("code").value,
+			document.getElementById("shortvar").value
+		);
 	},
-	compileToString:function(e){
-		document.getElementById("compiledCode").value=compileToString(document.getElementById("code").value,document.getElementById("shortvar").value);
+	compileToString: function () {
+		document.getElementById("compiledCode").value = compileToString(
+			document.getElementById("code").value,
+			document.getElementById("shortvar").value
+		);
 	}
 }
-
 	</script>
 	<style type="text/css">
 	body{
