@@ -1,157 +1,129 @@
 <!DOCTYPE HTML>
 <head>
-	<title>Horrible.js</title>
-	<script>
+ <title>Horrible.js</title>
+        <script>
 /*  horrible.js - a JS compiler that does horrible things.
- * Thomas NJ Shadwell
+ *   Thomas NJ Shadwell
  * Licensed under the MIT license.
  * Usage: window.compile(<string>, <string>)
- * Argument 1: The code to compile.
- * Argument 2: A (preferably very short) variable name you don't use.
- * window.horror- Horrible factor:
- *  Factor 1: As normal
- *  Factor 2: Encode numbers as mess
- *  Factor 3: Encode numbers and charcodes
+ *     Argument 1: The code to compile.
+ *  Argument 2: A (preferably very short) variable name you don't use.
+ *    window.horror- Horrible factor:
+ *    Factor 1: As normal
+ * Factor 2: Encode numbers as mess
+ *   Factor 3: Encode numbers and charcodes
  */
-var numberToMess = function (num) {
-	if (num == 0) return "(+[])";
-	else if (num == 1) return "(+!+[])";
-	else {
-		var str = "";
-		for (var d = 0; d < num; d++) {
-			str += "!+[]+";
-		}
-		return "(+" + str.slice(0, -1) + ")";
-	}
-}
-var stringToCharCodeArrayString = function (string) {
-	cc = [];
-	for (var i = 0; i < string.length; ++i) {
-		cc[i] = string.charCodeAt(i);
-	}
-	if (window.horror == 3) {
-		cc = cc.map(numberToMess);
-	}
-	return cc.join(",");
-}
-window.dict = {
-	'a': '(![]+[])[+!+[]]',
-	'b': '([]+[]+{})[!+[]+!+[]]',
-	'c': '([![]]+{})[+!+[]+[+[]]]',
-	'd': '([]+[]+[][[]])[!+[]+!+[]]',
-	'e': '(!![]+[])[!+[]+!+[]+!+[]]',
-	'f': '(![]+[])[+[]]',
-	'i': '([![]]+[][[]])[+!+[]+[+[]]]',
-	'j': '([]+[]+{})[+!+[]+[+[]]]',
-	'l': '(![]+[])[!+[]+!+[]]',
-	'N': '(+{}+[]+[])[+[]]',
-	'n': '([]+[]+[][[]])[+!+[]]',
-	'O': '(![]+[]+[]+[]+{})[+!+[]+[]+[]+(!+[]+!+[]+!+[])]',
-	'o': '([]+[]+{})[+!+[]]',
-	'r': '(!![]+[])[+!+[]]',
-	's': '(![]+[])[!+[]+!+[]+!+[]]',
-	't': '(!![]+[])[+[]]',
-	'u': '(!![]+[])[!+[]+!+[]]',
-	' ': '(+{}+[]+[]+[]+[]+{})[+!+[]+[+[]]]',
-	'[': '([]+[]+{})[+[]]',
-	']': '([]+[]+{})[+!+[]+[]+[]+(!+[]+!+[]+!+[]+!+[])]'
-}
-var compileToString = function (codeasstring, extrasvalue) {
-	window.cacheNumbers=[];
-	window.horror = document.getElementById("horror").value;
-	var c = " " + codeasstring;
-	var out = "";
-	var extras = "";
 
-	for (var i = 0, chr = ''; i < c.length; i++, chr = c[i]) {
-		if (i != 0) {
-			if (chr in dict) {
-				out += dict[chr] + "+";
-			} else {
-				if (extras.indexOf(chr) == -1) {
-					extras += chr;
-				}
-				if (window.horror == 1) {
-					out += extrasvalue + "[" + extras.indexOf(chr) + "]+";
-				} else {
-					out += extrasvalue + "[" + numberToMess(extras.indexOf(chr)) + "]+";
-				}
-			}
-		}
-	}
-	return extrasvalue + "=String.fromCharCode(" + stringToCharCodeArrayString(extras) + ");" + out.slice(0, -1);
+var ntm=function(n)
+    {
+ if(n == 0) return "(+[])";
+  else if (n == 1) return "(+!+[])";
+else {
+   var s = "";
+ for(var d=0; d< n;d++)
+{
+	s += "!+[]+";
+ }
+return  "(+"+s.slice(0,-1) +")";
 }
-var compile = function (codeasstring, extrasvalue) {
-	m = compileToString(codeasstring, extrasvalue).split(";");
-	return m[0] + ";_=\"constructor\";_[_][_](" + m[1] + ")();";
 }
+
+var stccas =function(s){
+   cc = [];
+for(var i= 0;i<s.length; ++i)   {
+	cc[i] = s.charCodeAt(i);
+	 } if(window.horror== 3) {
+ cc = cc.map(ntm);
+  }
+    return cc.join(",");
+}
+
+window.dict = {'a': '(![]+[])[+!+[]]',
+ 'b': '([]+[]+{})[!+[]+!+[]]',
+'c': '([![]]+{})[+!+[]+[+[]]]',
+   'd': '([]+[]+[][[]])[!+[]+!+[]]',
+  'e': '(!![]+[])[!+[]+!+[]+!+[]]',
+	'f': '(![]+[])[+[]]',
+ 'i': '([![]]+[][[]])[+!+[]+[+[]]]',  'j': '([]+[]+{})[+!+[]+[+[]]]',
+'l': '(![]+[])[!+[]+!+[]]',
+   'N': '(+{}+[]+[])[+[]]',
+  'n': '([]+[]+[][[]])[+!+[]]',      'O': '(![]+[]+[]+[]+{})[+!+[]+[]+[]+(!+[]+!+[]+!+[])]',
+     'o': '([]+[]+{})[+!+[]]',
+'r': '(!![]+[])[+!+[]]',
+ 's': '(![]+[])[!+[]+!+[]+!+[]]',  't': '(!![]+[])[+[]]',
+  'u': '(!![]+[])[!+[]+!+[]]',
+ ' ': '(+{}+[]+[]+[]+[]+{})[+!+[]+[+[]]]',      '[': '([]+[]+{})[+[]]',
+   ']': '([]+[]+{})[+!+[]+[]+[]+(!+[]+!+[]+!+[]+!+[])]'}
+
+var cts= function(s,e) 
+{
+window.cacheNumbers=  []; window.horror = document.getElementById("horror").value;
+   var  c = " " +  s; var f =  ""; var  h =  "";
+ for (var i = 0, z = ''; i < c.length; i++, z = c[i]) {
+		 if (i != 0) {
+	 if (z in dict) {
+ f += dict[z] + "+";} else {
+    if (h.indexOf(z) == -1) {h += z;
+  }
+if(window.horror== 1)
+ { f += e + "[" + h.indexOf(z) + "]+";
+	 } else {
+	f += e + "[" + ntm(h.indexOf(z)) + "]+";
+	 }}}} return  e +"=String.fromCharCode(" +stccas(h)+ ");" +f.slice(0,-1);
+}
+
+var compile =function  (s,e) {
+  m = cts(s, e).split(";");
+return m[0] +";_=\"constructor\";_[_][_]("+m[1] + ")();";
+}
+
 window.code = {
-	compile: function () {
-		document.getElementById("compiledCode").value = compile(
-			document.getElementById("code").value,
-			document.getElementById("shortvar").value
-		);
-	},
-	compileToString: function () {
-		document.getElementById("compiledCode").value = compileToString(
-			document.getElementById("code").value,
-			document.getElementById("shortvar").value
-		);
-	}
+ c: function(){
+document.getElementById("compiledCode").value = c(document.getElementById("code").value,
+   document.getElementById("shortvar").value
+	);
+},cts:function  (){document.getElementById("compiledCode").value = cts(
+ document.getElementById("code").value,
+document.getElementById("shortvar").value
+);
+}}
+  </script><style type="text/css">
+     body{
+   width:700px;
+margin-left:auto;
+ margin-right: auto;}
+textarea{
+   position:relative;
+ width:100%;
+   height: 500px;
+}#code:before{
+   display: block;
+     font-size:20px;
+  content:"Code to compile...";
 }
-	</script>
-	<style type="text/css">
-	body{
-		width:700px;
-		margin-left:auto;
-		margin-right:auto;
-	}
-	textarea{
-		position:relative;
-		width:100%;
-		height:500px;
-	}
-	#code:before{
-		display:block;
-		font-size:20px;
-		content:"Code to compile...";
-	}
-	#compiledCode:before{
-		display:block;
-		font-size:20px;
-		content:"Compiled code...";
-	}
-	head{
-		display:block;
-	}
-	title,script{
-		white-space: pre;
-		font-family:monospace;
-		font-size:15px;
-		color:black;
-		display:block;
-		border-bottom:1px solid black;
-	}
-	title{
-		font-size:30px;
-	}
-	a{
-		text-decoration:none;
-		color:black;
-		border:1px solid black;
-		padding:10px;
-		cursor:pointer;
-	}
-	a+a{
-		border-left:0px;
-	}
-	</style>
-</head>
-<body>
-	Horror factor:<br/><input id="horror" value="1" type="range"  min="1" max="3" step="1" /><br/>
-	Short var:<br/><input id="shortvar" type="text" value="$"/>
-	<textarea id="code"></textarea>
-	<a onclick="code.compile()"><i>compile</i> from text</a>
-	<a onclick="code.compileToString()"><i>compileToString</i> from text</a>
-	<textarea id="compiledCode"></textarea>
-</body>
+#compiledCode:before{
+  display:block;   font-size:20px;
+    content:"Compiled code...";}
+  head{
+ display: block;
+  }
+ title,script{
+  white-space: pre;   font-family:monospace;
+font-size:15px;
+ color:black;
+  display: block;
+   border-bottom:1px solid black;
+    }
+title{font-size:30px;    }
+a{
+  text-decoration:none;
+   color:black;
+ border:1px solid black;
+ padding:10px;
+    cursor:pointer;
+}
+a+a{    border-left:0px; }</style></head><body>
+Horror factor:<br/><input id="horror"    value="1" type="range"    min="1"   max="3" step="1" /><br    />Short var:<br /><input id="shortvar"    type="text"    value="$"/>  <textarea id="code"></textarea>  
+<a    onclick="code.c()"><i   >compile</i> from text</a>  
+<a onclick="code.cts()"><i>compileToString</i> from text</a>     <textarea     id="compiledCode"></textarea>
+</body></html>
