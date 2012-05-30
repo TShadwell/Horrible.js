@@ -36,7 +36,7 @@ There is a 'Horror factor', which determines how much to mess up the resulting c
 * Factor 2: Indexes encoded with quirks.
 * Factor 3: Indexes and char-codes encoded with quirks.
 
-To execute the code, Horrible.js uses `_="constructor";_[_][_](CODE)`. This works because the consteuctor of string is `String` and the constructor of string is `Function`, so it effectively runs `(new Function (CODE))();`.
+To execute the code, Horrible.js uses `_="constructor";_[_][_](CODE)`. This works because the constructor of string is `String` and the constructor of string is `Function`, so it effectively runs `(new Function (CODE))();`.
 
 The code used to construct the Function from the string can be changed with `window.constructo`.
 ## Example
