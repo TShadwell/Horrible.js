@@ -18,8 +18,9 @@ into your folder of choice, open index.html.
 
 ## Using the browser
 
-At the bottom of the page there are two boxes, one for code and one for output that can be used to compile code, in addition to a slider and a text input. Explainations of the functions are given below.
+At the bottom of the page there are two boxes, one for code and one for output that can be used to compile code, in addition to a slider, some radio bottons and a text input. Explainations of the functions are given below.
 
+The three radio buttons correspond to different amounts of obfuscation- radio 1 is as in the example, radio 2 encodes just the string "constructor" and radio 3 encodes `_[_][_]`, completely avoiding the use of underscores.
 ## Using Javascript
 
 There are two functions that can be used to compile code, both of which take 2 arguments, the code to compile (as a string) and the variable to use when compiling (also as a string):
@@ -35,6 +36,9 @@ There is a 'Horror factor', which determines how much to mess up the resulting c
 * Factor 2: Indexes encoded with quirks.
 * Factor 3: Indexes and char-codes encoded with quirks.
 
+To execute the code, Horrible.js uses `_="constructor";_[_][_](CODE)`. This works because the consteuctor of string is `String` and the constructor of string is `Function`, so it effectively runs `(new Function (CODE))();`.
+
+The code used to construct the Function from the string can be changed with `window.constructo`.
 ## Example
 
 Factor 1:

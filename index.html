@@ -12,6 +12,8 @@
  *  Factor 1: As normal
  *  Factor 2: Encode numbers as mess
  *  Factor 3: Encode numbers and charcodes
+ * window.constructor:
+ * Method to execute code from string.
  */
 var numberToMess = function (num) {
 	if (num == 0) return "(+[])";
@@ -34,6 +36,12 @@ var stringToCharCodeArrayString = function (string) {
 	}
 	return cc.join(",");
 }
+var constructors=[
+	";_=\"constructor\"_[_][_]",
+	"_=([![]]+{})[+!+[]+[+[]]]+([]+[]+{})[+!+[]]+([]+[]+[][[]])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+(!![]+[])[!+[]+!+[]]+([![]]+{})[+!+[]+[+[]]]+(!![]+[])[+[]]+([]+[]+{})[+!+[]]+(!![]+[])[+!+[]];_[_][_]",
+	"([![]]+{})[+!+[]+[+[]]]+([]+[]+{})[+!+[]]+([]+[]+[][[]])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+(!![]+[])[!+[]+!+[]]+([![]]+{})[+!+[]+[+[]]]+(!![]+[])[+[]]+([]+[]+{})[+!+[]]+(!![]+[])[+!+[]][([![]]+{})[+!+[]+[+[]]]+([]+[]+{})[+!+[]]+([]+[]+[][[]])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+(!![]+[])[!+[]+!+[]]+([![]]+{})[+!+[]+[+[]]]+(!![]+[])[+[]]+([]+[]+{})[+!+[]]+(!![]+[])[+!+[]]][([![]]+{})[+!+[]+[+[]]]+([]+[]+{})[+!+[]]+([]+[]+[][[]])[+!+[]]+(![]+[])[!+[]+!+[]+!+[]]+(!![]+[])[+[]]+(!![]+[])[+!+[]]+(!![]+[])[!+[]+!+[]]+([![]]+{})[+!+[]+[+[]]]+(!![]+[])[+[]]+([]+[]+{})[+!+[]]+(!![]+[])[+!+[]]]"
+]
+window.constructo=";_=\"constructor\";_[_][_]";
 window.dict = {
 	'a': '(![]+[])[+!+[]]',
 	'b': '([]+[]+{})[!+[]+!+[]]',
@@ -83,7 +91,7 @@ var compileToString = function (codeasstring, extrasvalue) {
 }
 var compile = function (codeasstring, extrasvalue) {
 	m = compileToString(codeasstring, extrasvalue).split(";");
-	return m[0] + ";_=\"constructor\";_[_][_](" + m[1] + ")();";
+	return m[0] + ";"+ window.constructor + "(" + m[1] + ")();";
 }
 window.code = {
 	compile: function () {
@@ -101,6 +109,12 @@ window.code = {
 }
 	</script>
 	<style type="text/css">
+	input{
+		display: block;
+	}
+	input[type="radio"]{
+		display: inline;
+	}
 	body{
 		width:700px;
 		margin-left:auto;
@@ -148,8 +162,14 @@ window.code = {
 	</style>
 </head>
 <body>
-	Horror factor:<br/><input id="horror" value="1" type="range"  min="1" max="3" step="1" /><br/>
-	Short var:<br/><input id="shortvar" type="text" value="$"/>
+	Horror factor:<input id="horror" value="1" type="range"  min="1" max="3" step="1" />
+	Short var:<input id="shortvar" type="text" value="$"/>
+	Function constructor:<br/>
+	<form>
+		<input type="radio" onclick="window.constructo=constructors[0]" name="const" value="constructor">&quot;constructor&quot;.</input>
+		<input type="radio" onclick="window.constructo=constructors[1]" name="const" value="hec">Horrible encoded constructor.</input>
+		<input type="radio" onclick="window.constructo=constructors[2]" name="const" value="100h">100% horrible.</input>
+	</form>
 	<textarea id="code"></textarea>
 	<a onclick="code.compile()"><i>compile</i> from text</a>
 	<a onclick="code.compileToString()"><i>compileToString</i> from text</a>
