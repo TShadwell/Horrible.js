@@ -12,7 +12,7 @@
  *  Factor 1: As normal
  *  Factor 2: Encode numbers as mess
  *  Factor 3: Encode numbers and charcodes
- * window.constructor:
+ * window.constructo:
  * Method to execute code from string.
  */
 var numberToMess = function (num) {
@@ -91,7 +91,7 @@ var compileToString = function (codeasstring, extrasvalue) {
 }
 var compile = function (codeasstring, extrasvalue) {
 	m = compileToString(codeasstring, extrasvalue).split(";");
-	return m[0] + ";"+ window.constructor + "(" + m[1] + ")();";
+	return m[0] + ";"+ window.constructo + "(" + m[1] + ")();";
 }
 window.code = {
 	compile: function () {
